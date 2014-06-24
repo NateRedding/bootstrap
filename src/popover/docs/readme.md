@@ -1,6 +1,12 @@
 A lightweight, extensible directive for fancy popover creation. The popover
 directive supports multiple placements, optional transition animation, and more.
 
+There are two versions of the popover: `popover` and `popover-html-unsafe`. The
+former takes text only and will escape any HTML provided. The latter takes
+whatever HTML is provided and displays it in a tooltip; it is called "unsafe"
+because the HTML is not sanitized. *The user is responsible for ensuring the
+content is safe to put into the DOM!*
+
 Like the Bootstrap jQuery plugin, the popover **requires** the tooltip
 module.
 
