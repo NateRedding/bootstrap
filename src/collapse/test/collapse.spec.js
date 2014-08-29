@@ -71,6 +71,34 @@ describe('collapse directive', function () {
     }
   });
 
+  it('should emit start and end events for the collapse transition', function() {
+    scope.isCollapsed = false;
+    scope.$digest();
+    spyOn(scope, '$emit');
+    scope.isCollapsed = true;
+    scope.$digest();
+    $timeout.flush();
+    expect(scope.$emit).toHaveBeenCalledWith('collapse.start');
+    if ($transition.transitionEndEventName) {
+      element.triggerHandler($transition.transitionEndEventName);
+    }
+    expect(scope.$emit).toHaveBeenCalledWith('collapse.end');
+  });
+
+  it('should emit start and end events for the expand transition', function() {
+    scope.isCollapsed = true;
+    scope.$digest();
+    spyOn(scope, '$emit');
+    scope.isCollapsed = false;
+    scope.$digest();
+    $timeout.flush();
+    expect(scope.$emit).toHaveBeenCalledWith('expand.start');
+    if ($transition.transitionEndEventName) {
+      element.triggerHandler($transition.transitionEndEventName);
+    }
+    expect(scope.$emit).toHaveBeenCalledWith('expand.end');
+  });
+
   describe('dynamic content', function() {
 
     var element;

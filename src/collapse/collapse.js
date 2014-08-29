@@ -26,6 +26,7 @@ angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
         }
 
         function expand() {
+          scope.$emit('expand.start');
           if (initialAnimSkip) {
             initialAnimSkip = false;
             expandDone();
@@ -39,9 +40,11 @@ angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
           element.removeClass('collapsing');
           element.addClass('collapse in');
           element.css({height: 'auto'});
+          scope.$emit('expand.end');
         }
 
         function collapse() {
+          scope.$emit('collapse.start');
           if (initialAnimSkip) {
             initialAnimSkip = false;
             collapseDone();
@@ -61,6 +64,7 @@ angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
         function collapseDone() {
           element.removeClass('collapsing');
           element.addClass('collapse');
+          scope.$emit('collapse.end');
         }
 
         scope.$watch(attrs.collapse, function (shouldCollapse) {
